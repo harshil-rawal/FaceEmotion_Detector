@@ -29,15 +29,19 @@ A deep learning–based Face Emotion Detection system that detects human faces f
 
 ## Project Structure
 
-```
+
 FaceEmotion_Detector/
 │
-├── emotion_detector_models/
+├── docs/
+├── models/
+├── notebooks/
+├── outputs/
 ├── src/
 ├── test_images/
 ├── README.md
-└── requirements.txt
-```
+├── requirements.txt
+└── .gitignore
+
 
 ---
 
