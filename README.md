@@ -1,42 +1,90 @@
+# Face Emotion Detector
+
+A deep learning–based Face Emotion Detection system that detects human faces from images or webcam input and predicts facial emotions using a pre-trained convolutional neural network (CNN).
+
+---
+
+## Features
+
+- Face Detection using dlib
+- Facial Landmark Detection
+- Emotion Classification
+- Pre-trained Deep Learning Model
+- Image and Webcam Support
+- Easy-to-run Jupyter notebooks
+
+---
+
+## Tech Stack
+
+- Python
+- TensorFlow / Keras
+- OpenCV
+- NumPy
+- dlib
+- face_recognition
+- Jupyter Notebook
+
+---
+
+## Project Structure
+
+```
+FaceEmotion_Detector/
+│
+├── emotion_detector_models/
+├── src/
+├── test_images/
+├── README.md
+└── requirements.txt
+```
+
+---
+
 ## Installation
 
-### 
+Clone the repository
 
-### Requirements
-
-- Python 3.3+ or Python 2.7
-- macOS or Linux 
-
-### 
-
-### Installation Options:
-
-#### Installing on Mac or Linux
-
-First, make sure you have dlib already installed with Python bindings:
-
-- [How to install dlib from source on macOS or Ubuntu](https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf)
-
-Then, install this module from pypi using `pip3` (or `pip2` for Python 2):
-
-```
-pip3 install face_recognition
+```bash
+git clone https://github.com/harshil-rawal/FaceEmotion_Detector.git
 ```
 
-Alternatively, you can try this library with [Docker](https://www.docker.com/), see [this section](https://github.com/ageitgey/face_recognition/blob/master/README.md#deployment).
+Install dependencies
 
-If you are having trouble with installation, you can also try out a [pre-configured VM](https://medium.com/@ageitgey/try-deep-learning-in-python-now-with-a-fully-pre-configured-vm-1d97d4c3e9b).
+```bash
+pip install -r requirements.txt
+```
 
+---
 
+## Usage
 
-## Usage:
+Run the notebooks inside the `src` folder.
 
-### Complete pipeline for Face Detection, Face Recognition and Emotion Detection
-Refer to the notebook /src/facial_detection_recog_emotion.ipynb
+- `EmotionDetector_v2.ipynb`
+- `facial_detection_recog_emotion.ipynb`
 
-We have trained an emotion detection model and put its trained weights at /emotion_detector_models
+---
 
-### Train your Emotion Detection Model
-To train your own emotion detection model, Refer to the notebook /src/EmotionDetector_v2.ipynb
+## Sample Features
 
+- Detect faces
+- Predict emotions
+- Test using sample images
+- Extend to real-time webcam detection
 
+---
+
+## Future Improvements
+
+- Live webcam GUI
+- Higher accuracy model
+- Multiple face tracking
+- REST API deployment
+- Streamlit web interface
+
+---
+
+## License
+
+This project is intended for educational and research purposes.
