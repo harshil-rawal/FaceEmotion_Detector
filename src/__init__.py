@@ -1,0 +1,3 @@
+"""
+FaceEmotion_Detector package.
+"""

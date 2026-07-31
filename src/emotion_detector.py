@@ -1,0 +1,3 @@
+"""
+Emotion prediction module.
+"""
