@@ -2,77 +2,97 @@
 Emotion detection CNN model.
 """
 
+import numpy as np
+
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Activation
+from tensorflow.keras.layers import (
+    Input,
+    Conv2D,
+    MaxPooling2D,
+    Flatten,
+    Activation,
+)
 from tensorflow.keras.regularizers import l2
 
 
 class EmotionDetector:
-    """
-    CNN architecture for facial emotion recognition.
-    """
+
+    EMOTION_LABELS = [
+        "Angry",
+        "Disgust",
+        "Fear",
+        "Happy",
+        "Sad",
+        "Surprise",
+        "Neutral",
+    ]
 
     def __init__(self):
         self.model = self._build_model()
 
     def _build_model(self):
+
         model = Sequential(name="EmotionDetectorCNN")
+
+        model.add(Input(shape=(48, 48, 1)))
 
         model.add(
             Conv2D(
                 32,
-                kernel_size=(3, 3),
+                (3, 3),
                 activation="relu",
-                kernel_regularizer=l2(0.0001),
-                input_shape=(48, 48, 1),
+                kernel_regularizer=l2(1e-4),
             )
         )
 
         model.add(
             Conv2D(
                 64,
-                kernel_size=(3, 3),
+                (3, 3),
                 activation="relu",
-                kernel_regularizer=l2(0.0001),
+                kernel_regularizer=l2(1e-4),
             )
         )
-        model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        model.add(MaxPooling2D((2, 2)))
 
         model.add(
             Conv2D(
                 128,
-                kernel_size=(3, 3),
+                (3, 3),
                 activation="relu",
-                kernel_regularizer=l2(0.0001),
+                kernel_regularizer=l2(1e-4),
             )
         )
-        model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        model.add(MaxPooling2D((2, 2)))
 
         model.add(
             Conv2D(
                 128,
-                kernel_size=(3, 3),
+                (3, 3),
                 activation="relu",
-                kernel_regularizer=l2(0.0001),
+                kernel_regularizer=l2(1e-4),
             )
         )
-        model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        model.add(MaxPooling2D((2, 2)))
 
         model.add(
             Conv2D(
                 7,
-                kernel_size=(1, 1),
+                (1, 1),
                 activation="relu",
-                kernel_regularizer=l2(0.0001),
+                kernel_regularizer=l2(1e-4),
             )
         )
 
         model.add(
             Conv2D(
                 7,
-                kernel_size=(4, 4),
+                (4, 4),
                 activation="relu",
-                kernel_regularizer=l2(0.0001),
+                kernel_regularizer=l2(1e-4),
             )
         )
 
@@ -81,6 +101,16 @@ class EmotionDetector:
 
         return model
 
-    def summary(self):
-        """Print the model summary."""
-        self.model.summary()
+    def predict(self, image):
+
+        probabilities = self.model.predict(image, verbose=0)
+
+        class_id = int(np.argmax(probabilities))
+
+        confidence = float(probabilities[0][class_id])
+
+        return {
+            "class_id": class_id,
+            "emotion": self.EMOTION_LABELS[class_id],
+            "confidence": confidence,
+        }

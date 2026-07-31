@@ -1,21 +1,23 @@
 from config import TEST_IMAGES_DIR
 from data_loader import preprocess_image
+from emotion_detector import EmotionDetector
 
 
 def main():
 
-    image_path = TEST_IMAGES_DIR / "39.jpg"
+    detector = EmotionDetector()
 
-    image = preprocess_image(image_path)
+    image = preprocess_image(
+        TEST_IMAGES_DIR / "39.jpg"
+    )
+
+    result = detector.predict(image)
 
     print("=" * 50)
-    print("Image preprocessing successful")
+    print("Prediction Pipeline")
     print("=" * 50)
 
-    print(f"Shape : {image.shape}")
-    print(f"Type  : {image.dtype}")
-    print(f"Min   : {image.min():.3f}")
-    print(f"Max   : {image.max():.3f}")
+    print(result)
 
 
 if __name__ == "__main__":
