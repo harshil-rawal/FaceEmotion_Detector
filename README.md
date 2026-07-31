@@ -1,56 +1,94 @@
-# Face Emotion Detector
+# 🎭 Face and Emotion Detection using CNN
 
-A deep learning–based Face Emotion Detection system that detects human faces from images or webcam input and predicts facial emotions using a pre-trained convolutional neural network (CNN).
-
----
-
-## Features
-
-- Face Detection using dlib
-- Facial Landmark Detection
-- Emotion Classification
-- Pre-trained Deep Learning Model
-- Image and Webcam Support
-- Easy-to-run Jupyter notebooks
+A real-time facial emotion recognition system built using **TensorFlow/Keras** and **OpenCV**. The project detects faces from images or a live webcam feed and classifies facial expressions into seven emotion categories using a Convolutional Neural Network (CNN).
 
 ---
 
-## Tech Stack
+## ✨ Features
 
-- Python
-- TensorFlow / Keras
-- OpenCV
-- NumPy
-- dlib
-- face_recognition
-- Jupyter Notebook
+- 😊 Real-time webcam emotion detection
+- 🖼️ Emotion prediction from static images
+- 👤 Face detection using OpenCV Haar Cascade
+- 🧠 Custom CNN trained on the FER2013 dataset
+- 📈 Modular training pipeline with callbacks
+- 💾 Automatic model checkpointing
+- ⚙️ Clean and modular Python project structure
 
 ---
 
-## Project Structure
+## 📌 Supported Emotions
 
+- Angry
+- Disgust
+- Fear
+- Happy
+- Sad
+- Surprise
+- Neutral
 
-FaceEmotion_Detector/
+---
+
+## 📂 Project Structure
+
+```
+face_and_emotion_detection/
 │
-├── docs/
 ├── models/
+│   ├── emotion_model.keras
+│   ├── haarcascade_frontalface_default.xml
+│   └── model_v6_23.hdf5
+│
 ├── notebooks/
+│   └── EmotionDetector_v2.ipynb
+│
 ├── outputs/
+│
 ├── src/
+│   ├── config.py
+│   ├── data_loader.py
+│   ├── dataset.py
+│   ├── emotion_detector.py
+│   ├── face_detector.py
+│   ├── main.py
+│   ├── train.py
+│   ├── preprocessing.py
+│   ├── utils.py
+│   └── webcam.py
+│
 ├── test_images/
-├── README.md
 ├── requirements.txt
-└── .gitignore
-
+└── README.md
+```
 
 ---
 
-## Installation
+## 🚀 Installation
 
 Clone the repository
 
 ```bash
-git clone https://github.com/harshil-rawal/FaceEmotion_Detector.git
+git clone <repository-url>
+cd face_and_emotion_detection
+```
+
+Create a virtual environment
+
+```bash
+python -m venv .venv
+```
+
+Activate it
+
+Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+Linux / macOS
+
+```bash
+source .venv/bin/activate
 ```
 
 Install dependencies
@@ -61,34 +99,124 @@ pip install -r requirements.txt
 
 ---
 
-## Usage
+## 📊 Dataset
 
-Run the notebooks inside the `src` folder.
+This project uses the **FER2013 Facial Expression Recognition Dataset**.
 
-- `EmotionDetector_v2.ipynb`
-- `facial_detection_recog_emotion.ipynb`
+Download the dataset from Kaggle and extract it as:
+
+```
+fer2013/
+    train/
+        angry/
+        disgust/
+        fear/
+        happy/
+        neutral/
+        sad/
+        surprise/
+
+    validation/
+        angry/
+        disgust/
+        fear/
+        happy/
+        neutral/
+        sad/
+        surprise/
+```
 
 ---
 
-## Sample Features
+## 🏋️ Training
 
-- Detect faces
-- Predict emotions
-- Test using sample images
-- Extend to real-time webcam detection
+Train the CNN using
+
+```bash
+python src/train.py
+```
+
+The best performing model is automatically saved to
+
+```
+models/emotion_model.keras
+```
+
+using `ModelCheckpoint`.
 
 ---
 
-## Future Improvements
+## 📷 Run Webcam Emotion Detection
 
-- Live webcam GUI
-- Higher accuracy model
-- Multiple face tracking
-- REST API deployment
-- Streamlit web interface
+```bash
+python src/main.py --webcam
+```
+
+Press **Q** to exit.
 
 ---
 
-## License
+## 🖼️ Predict Emotion from an Image
+
+```bash
+python src/main.py --image test_images/example.jpg
+```
+
+---
+
+## 🧠 Model Architecture
+
+The model consists of:
+
+- Convolutional Layers
+- Batch Normalization
+- ReLU Activation
+- Max Pooling
+- Dropout Regularization
+- Fully Connected Dense Layer
+- Softmax Output Layer
+
+---
+
+## 📈 Performance
+
+- Dataset: FER2013
+- Classes: 7
+- Input Size: 48×48 (Grayscale)
+- Optimizer: Adam
+- Loss: Categorical Crossentropy
+- Data Augmentation: Rotation, Zoom, Shear, Horizontal Flip
+
+**Best Validation Accuracy**
+
+```
+57.68%
+```
+
+---
+
+## 🛠️ Technologies Used
+
+- Python
+- TensorFlow
+- Keras
+- OpenCV
+- NumPy
+- Matplotlib
+- Jupyter Notebook
+
+---
+
+## 🔮 Future Improvements
+
+- Improve prediction stability using temporal smoothing
+- Replace Haar Cascade with MediaPipe Face Detection
+- Deploy as a Flask web application
+- Export the trained model to TensorFlow Lite
+- Improve accuracy using Mini-Xception or EfficientNet
+
+---
+
+## 📜 License
 
 This project is intended for educational and research purposes.
