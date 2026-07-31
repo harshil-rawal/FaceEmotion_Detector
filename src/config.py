@@ -18,3 +18,5 @@ DATASET_DIR = PROJECT_ROOT / "fer2013"
 
 # Model file
 EMOTION_MODEL = MODELS_DIR / "model_v6_23.hdf5"
+
+FACE_CASCADE = MODELS_DIR / "haarcascade_frontalface_default.xml"

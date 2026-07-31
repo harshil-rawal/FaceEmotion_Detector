@@ -2,6 +2,7 @@ import argparse
 
 from data_loader import preprocess_image
 from emotion_detector import EmotionDetector
+from webcam import WebcamEmotionDetector
 
 
 def parse_arguments():
@@ -11,8 +12,14 @@ def parse_arguments():
 
     parser.add_argument(
         "--image",
-        required=True,
+        type=str,
         help="Path to input image",
+    )
+
+    parser.add_argument(
+        "--webcam",
+        action="store_true",
+        help="Run live webcam detection",
     )
 
     return parser.parse_args()
@@ -22,19 +29,35 @@ def main():
 
     args = parse_arguments()
 
-    detector = EmotionDetector()
+    # Webcam mode
+    if args.webcam:
+        webcam = WebcamEmotionDetector()
+        webcam.run()
+        return
 
-    image = preprocess_image(args.image)
+    # Image mode
+    if args.image:
 
-    result = detector.predict(image)
+        detector = EmotionDetector()
 
-    print("=" * 50)
-    print("Prediction Result")
-    print("=" * 50)
+        image = preprocess_image(args.image)
 
-    print(f"Image      : {args.image}")
-    print(f"Emotion    : {result['emotion']}")
-    print(f"Confidence : {result['confidence']:.4f}")
+        result = detector.predict(image)
+
+        print("=" * 50)
+        print("Prediction Result")
+        print("=" * 50)
+
+        print(f"Image      : {args.image}")
+        print(f"Emotion    : {result['emotion']}")
+        print(f"Confidence : {result['confidence']:.4f}")
+
+        return
+
+    print("Please specify either:")
+    print("  --image <path>")
+    print("or")
+    print("  --webcam")
 
 
 if __name__ == "__main__":
