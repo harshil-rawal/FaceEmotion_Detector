@@ -5,6 +5,8 @@ Live webcam face detection.
 import cv2
 
 from face_detector import FaceDetector
+from data_loader import preprocess_image
+from emotion_detector import EmotionDetector
 
 
 class WebcamEmotionDetector:
@@ -12,6 +14,7 @@ class WebcamEmotionDetector:
     def __init__(self):
 
         self.face_detector = FaceDetector()
+        self.detector = EmotionDetector()
 
     def run(self):
 
@@ -33,7 +36,22 @@ class WebcamEmotionDetector:
 
             for (x, y, w, h) in faces:
 
-    # Draw face bounding box
+    # Crop detected face
+                face = frame[y:y+h, x:x+w]
+
+                try:
+                    # Preprocess for CNN
+                    processed = preprocess_image(face)
+
+        # Predict emotion
+                    result = self.detector.predict(processed)
+
+                    label = f"{result['emotion']} ({result['confidence']:.2f})"
+
+                except Exception:
+                    label = "Unknown"
+
+    # Draw bounding box
                 cv2.rectangle(
                     frame,
                     (x, y),
@@ -42,10 +60,10 @@ class WebcamEmotionDetector:
                     2,
                 )
 
-    # Display label above the face
+    # Draw label
                 cv2.putText(
                     frame,
-                    "Face",
+                    label,
                     (x, y - 10),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.7,
@@ -53,10 +71,7 @@ class WebcamEmotionDetector:
                     2,
                 )
 
-            cv2.imshow(
-                "Face Emotion Detector",
-                frame,
-            )
+            cv2.imshow("Face Emotion Detector", frame)
 
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
