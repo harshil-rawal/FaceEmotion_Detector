@@ -220,3 +220,8 @@ The model consists of:
 ## 📜 License
 
 This project is intended for educational and research purposes.
+
+## Contributors
+
+- Harshil Rawal
+- Samridhi Singh
